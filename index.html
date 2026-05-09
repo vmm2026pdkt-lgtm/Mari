@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>மாரிச்செல்வன்</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Tamil:ital@0;1&family=Playfair+Display:wght@900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0f;
+      overflow: auto;
+      font-family: 'Tiro Tamil', serif;
+    }
+
+    /* Animated background */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(ellipse at 20% 50%, #1a0533 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, #001a33 0%, transparent 60%),
+                  radial-gradient(ellipse at 60% 80%, #0d1a00 0%, transparent 60%),
+                  #0a0a0f;
+    }
+
+    .bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 8s ease-in-out infinite;
+      z-index: 0;
+    }
+    .orb1 { width: 400px; height: 400px; background: #7b00ff; top: -100px; left: -100px; animation-delay: 0s; }
+    .orb2 { width: 300px; height: 300px; background: #00a8ff; bottom: -80px; right: -80px; animation-delay: 3s; }
+    .orb3 { width: 250px; height: 250px; background: #00ff88; bottom: 20%; left: 10%; animation-delay: 1.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Label */
+    .label {
+      font-size: 0.85rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1.5rem;
+      animation: fadeIn 1.2s ease 0.3s both;
+    }
+
+    /* Name */
+    .name {
+      font-family: 'Tiro Tamil', serif;
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      font-weight: 700;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffffff 0%, #a78bfa 40%, #38bdf8 70%, #86efac 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.02em;
+      animation: shimmer 4s linear infinite, fadeIn 1s ease 0.5s both;
+      background-size: 300% 300%;
+      text-shadow: none;
+      position: relative;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glow line */
+    .line {
+      width: 120px;
+      height: 3px;
+      margin: 1.8rem auto 1.5rem;
+      background: linear-gradient(90deg, transparent, #a78bfa, #38bdf8, transparent);
+      border-radius: 2px;
+      animation: expandLine 1s ease 0.8s both, pulse 3s ease-in-out 2s infinite;
+    }
+
+    @keyframes expandLine {
+      from { width: 0; opacity: 0; }
+      to   { width: 120px; opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Subtitle */
+    .subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.2em;
+      animation: fadeIn 1s ease 1s both;
+    }
+
+    /* Price list */
+    .price-section {
+      margin-top: 2.5rem;
+      animation: fadeIn 1s ease 1.2s both;
+    }
+
+    .price-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+    }
+
+    .price-table {
+      border-collapse: collapse;
+      width: clamp(280px, 80vw, 480px);
+      margin: 0 auto;
+    }
+
+    .price-table tr {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: background 0.2s;
+    }
+
+    .price-table tr:hover {
+      background: rgba(167,139,250,0.08);
+    }
+
+    .price-table td {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .price-table td:first-child {
+      text-align: left;
+    }
+
+    .price-table td:last-child {
+      text-align: right;
+      font-weight: 700;
+      color: #86efac;
+      letter-spacing: 0.05em;
+    }
+
+    .item-icon {
+      margin-right: 0.5rem;
+    }
+
+    /* Particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: white;
+      opacity: 0;
+      animation: rise linear infinite;
+    }
+
+    @keyframes rise {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.2; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <p class="label">✦ நல்வரவு ✦</p>
+    <h1 class="name">மாரிச்செல்வன்</h1>
+    <div class="line"></div>
+    <p class="subtitle">Marichelvam</p>
+
+    <div class="price-section">
+      <p class="price-title">✦ விலை பட்டியல் ✦</p>
+      <table class="price-table">
+        <tr>
+          <td><span class="item-icon">🌾</span> அரிசி (1 கிலோ)</td>
+          <td>₹ 55</td>
+        </tr>
+        <tr>
+          <td><span class="item-icon">🫘</span> தூவரம் பருப்பு (1 கிலோ)</td>
+          <td>₹ 140</td>
+        </tr>
+        <tr>
+          <td><span class="item-icon">🧂</span> உப்பு (1 கிலோ)</td>
+          <td>₹ 20</td>
+        </tr>
+        <tr>
+          <td><span class="item-icon">🫙</span> கடலை எண்ணெய் (1 லிட்டர்)</td>
+          <td>₹ 180</td>
+        </tr>
+        <tr>
+          <td><span class="item-icon">🌶️</span> மிளகாய் தூள் (100 கிராம்)</td>
+          <td>₹ 35</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Create floating particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('div');
+      p.classList.add('particle');
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+      p.style.background = ['#a78bfa','#38bdf8','#86efac','#ffffff'][Math.floor(Math.random()*4)];
+      container.appendChild(p);
+    }
+  </script>
+</body>
+</html>
